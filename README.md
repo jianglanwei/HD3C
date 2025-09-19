@@ -1,14 +1,14 @@
-# HD3C: Hyperdimensional Computing with Class-Wise Clustering
+# HD3C: Hyperdimensional Computing with Class-Wise Computing
 
 [![Python](https://img.shields.io/badge/python-3.10-blue.svg)](https://www.python.org/downloads/release/python-3100/)
 [![NumPy](https://img.shields.io/badge/numpy-2.2.4-orange.svg)](https://numpy.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![arXiv](https://img.shields.io/badge/arXiv-2509.12345-b31b1b.svg)](https://arxiv.org/abs/2509.14617)
+[![arXiv](https://img.shields.io/badge/arXiv-2509.14617-b31b1b.svg)](https://arxiv.org/abs/2509.14617)
 
 ## 1. Overview
 
-This repository provides the official implementation of **HD3C**, an efficient 
-classification framework designed for embedded devices. The HD3C paper is availale 
+This repository provides the official implementation of **HD3C**, a lightweight 
+classification framework designed for low-power devices. The HD3C paper is available 
 [here](https://arxiv.org/abs/2509.14617).
 
 When applied to heart sound classification, HD3C achieves accuracy comparable to 
@@ -25,8 +25,6 @@ hypervectors S ∈ { -1, +1 }ᴰ where d << D. Classification is performed using
 hyperspace clustering and Hamming distance-based similarity measurement.
 
 ![HD3C Overview](media/pipeline.svg)
-
-> **Status**: This work is currently under review as a conference paper.
 
 ## 2. Installation
 
@@ -55,7 +53,7 @@ cd hd3c
 Install the required Python packages using the provided `requirements.txt` file:
 
 ```bash
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 ```
 
 ## 3. Run HD3C on PhysioNet 2016
@@ -74,10 +72,10 @@ To run HD3C on PhysioNet 2016 (both training and evaluation), use the following
 command:
 
 ```bash
-python main.py --task PhysioNet2016
+python3 main.py --task PhysioNet2016
 ```
 
-> **Note:** This project does not use a fixed random seed, which may result in 
+> **Note:** This implementation does not use a fixed random seed, which may result in 
 slight variations between runs. For reliable evaluation, we recommend running the
 experiment multiple times and reporting the average.
 
@@ -107,10 +105,11 @@ more than 10% over traditional HDC approaches, making it highly suitable for
 resource-constrained applications in home and field healthcare. We are currently 
 developing hardware tailored for HD3C to further enhance its energy efficiency.
 
- > **Tip:** You can reduce HD3C to a traditional hyperdimensional computing (HDC) 
- pipeline by setting `num_clusters_per_class: 1` and `num_clustering_iters: 0` 
- in `config/PhysioNet2016.yaml`. This disables class-wise clustering. Try both 
- configurations to observe the impact of clustering on performance.
+ > **Tip:** You can reduce HD3C to a standard hyperdimensional computing (HDC) 
+ pipeline by setting `num_clusters_per_class: 1`, `num_clustering_iters: 0` 
+ (disables hyperspace clustering) and `num_retrain_epochs: 1` (disables retraining) 
+ in `config/PhysioNet2016.yaml`. Try both configurations to observe the impact of 
+ clustering and retraining on performance.
 
 ## 4. Add a Custom Classification Task
 
@@ -156,7 +155,7 @@ labels must be integers in the range `{0, 1, ..., num_classes - 1}`.
 Once the configuration and dataset are ready, run the following command:
 
 ```bash
-python main.py --task {task_name}
+python3 main.py --task {task_name}
 ```
 
 This will train and evaluate HD3C on your custom dataset.
